@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Test page</title>
     <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
     <script src="../jquery.element.js" type="text/javascript"></script>
     <script type="text/javascript">
-      $(function() {
+      $(function () {
         var movies = [
           { Name: "The Red Violin", ReleaseYear: "1998" },
           { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
           { Name: "The Inheritance", ReleaseYear: "1976" }
-	];
+        ];
 
         // Handy abbreviation
         var el = $.element;
 
-        var movieTemplate = function(data) {
-          return $.map(data, function(movie) {
+        var movieTemplate = function (data) {
+          return $.map(data, function (movie) {
             return el.li(
               el.b(movie.Name), ' (', movie.ReleaseYear, ')'
             );
           });
         };
 
-        var completeMoviesTemplate = function(data) {
+        var completeMoviesTemplate = function (data) {
           return el.ul(
-            $.map(data, function(movie) {
+            $.map(data, function (movie) {
               return el.li(
                 el.b(movie.Name), ' (', movie.ReleaseYear, ')'
-              )
+              );
             })
           );
         };
 
-        var completeMoviesTemplateWithFor = function(data) {
+        var completeMoviesTemplateWithFor = function (data) {
           var result = el.ul();
-          for (var i=0;i<movies.length;i++) {
+          for (var i = 0; i < data.length; i++) {
             var movie = movies[i];
             el.li(
               el.b(movie.Name), ' (', movie.ReleaseYear, ')'
@@ -43,15 +44,48 @@
           return result;
         };
 
-	$('#movieList').append(movieTemplate(movies));
+        $('#movieList').append(movieTemplate(movies));
 
-	el.h3('completeMoviesTemplate').appendTo($('body'));
-	completeMoviesTemplate(movies).appendTo($('body'));
+        el.h3('completeMoviesTemplate').appendTo($('body'));
+        completeMoviesTemplate(movies).appendTo($('body'));
 
-	el.h3('completeMoviesTemplateWithFor').appendTo($('body'));
-	completeMoviesTemplateWithFor(movies).appendTo($('body'));
+        el.h3('completeMoviesTemplateWithFor').appendTo($('body'));
+        completeMoviesTemplateWithFor(movies).appendTo($('body'));
+
+        // JSPerf test
+        window.elementTemplate = function (data) {
+          return el.div(
+            el.h1({ className: 'header' }, data.header),
+            el.h2({ className: 'header' }, data.header2),
+            el.h3({ className: 'header' }, data.header3),
+            el.h4({ className: 'header' }, data.header4),
+            el.h5({ className: 'header' }, data.header5),
+            el.h6({ className: 'header' }, data.header6),
+            el.ul({ className: 'list' },
+              $.map(data.list, function (item) {
+                return el.li({ className: 'item' }, item);
+              })
+            )
+          );
+        };
+
+        window.sharedVariables = {
+          header: "Header",
+          header2: "Header2",
+          header3: "Header3",
+          header4: "Header4",
+          header5: "Header5",
+          header6: "Header6",
+          list: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+        };
+
+        elementTemplate(sharedVariables).appendTo($('body'));
+
       });
+
     </script>
+    
+
   </head>
   <body>
     <h3>Original</h3>

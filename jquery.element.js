@@ -14,7 +14,7 @@
       if (attributes.hasOwnProperty(attribute)) {
         var value = attributes[attribute];
         if (value !== null && value !== undefined) {
-          element.setAttribute(attribute, value);
+          element.attr(attribute, value);
         }
       }
     }
