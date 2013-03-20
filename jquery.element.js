@@ -2,7 +2,7 @@
   "use strict";
 
   // Internet explorer 6 or 7?
-  var ie67mode = (navigator.appName == 'Microsoft Internet Explorer' && /^MSIE [67]/.test(navigator.userAgent));
+  var ie67mode = (navigator.appName == 'Microsoft Internet Explorer' && /MSIE [67]/.test(navigator.userAgent));
   var previousDocumentStack = [];
   var currentDocument = document;
 
@@ -14,7 +14,7 @@
       if (attributes.hasOwnProperty(attribute)) {
         var value = attributes[attribute];
         if (value !== null && value !== undefined) {
-          element.attr(attribute, value);
+          element[0][attribute] = value;
         }
       }
     }
@@ -53,7 +53,7 @@
       	element.append(child);
       } else if (i === 0 && !child.nodeName && isRoot) { // Attributes object
         if (ie67mode) {
-          element = createIE67Element(element.tagName.toLowerCase(), child);
+          element = createIE67Element(element[0].tagName.toLowerCase(), child);
         } else {
           setAttributes(element, child);
         }

@@ -1,0 +1,27 @@
+{
+    "name": "element",
+    "title": "jQuery Element",
+    "description": "jQuery plugin that provides an elegant way to dynamically create HTML DOM elements from Javascript.",
+    "keywords": [ "element", "template", "templates" ],
+    "version": "0.9.2",
+    "author": {
+        "name": "Johan Gorter"
+    },
+    "maintainers": [
+        {
+            "name": "Johan Gorter"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/johan-gorter/jquery.element/blob/master/MIT-LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/johan-gorter/jquery.element/issues",
+    "homepage": "https://github.com/johan-gorter/jquery.element",
+    "docs": "https://github.com/johan-gorter/jquery.element",
+    "dependencies": {
+        "jquery": ">=1.8"
+    }
+}

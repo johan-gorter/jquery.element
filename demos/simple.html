@@ -2,19 +2,50 @@
 <html>
   <head>
     <title>Test page</title>
+    <style>
+      .todos { padding: 10px;position: absolute;right: 5px;background-color: yellow;width: 300px;}
+    </style>
     <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
     <script src="../jquery.element.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(function () {
+
+        // Handy abbreviation
+        var el = $.element;
+
+        // Showcase static
+
+        el.div({ className: 'control-group' },
+          el.label({ className: 'control-label', htmlFor: 'inputEmail' },
+            'Email'
+          ),
+          el.div({ className: 'controls' },
+            el.input({ type: 'text', id: 'inputEmail', placeholder: 'Email' })
+          )
+        ).appendTo($('body'));
+        
+        // Showcase Todos
+        var todosList, newTodoInput;
+        
+        el.div({className:'todos'},
+          el.h3('Todos').css('color','brown'),
+          todosList=el.ul(),
+          'New todo:',
+          newTodoInput = el.input({ type: 'text', placeholder:'What should we do?' }),
+          el.button('Add')
+            .click(function () {
+              el.li(newTodoInput.val()).appendTo(todosList);
+              newTodoInput.val('').focus();
+            })
+        ).appendTo($('body'));
+
+        // Looping
         var movies = [
           { Name: "The Red Violin", ReleaseYear: "1998" },
           { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
           { Name: "The Inheritance", ReleaseYear: "1976" }
         ];
-
-        // Handy abbreviation
-        var el = $.element;
-
+        
         var movieTemplate = function (data) {
           return $.map(data, function (movie) {
             return el.li(
