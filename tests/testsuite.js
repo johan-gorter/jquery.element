@@ -21,7 +21,7 @@ test("normal use cases", function() {
 });
 
 test("custom properties", function() {
-  var element = $.element.b( { className: "label", att1: "value1", att2: "value2"}, "Bold language");
+  var element = $.element.b( { className: "label", att1: "value1", att2: "value2"}, "Bold language").attr("att3", "value3");
   
   // JQuery.element sets the property, not the attribute
   ok(element.attr("att2")!=="value2");
@@ -31,4 +31,8 @@ test("custom properties", function() {
   
   // This works also
   ok(element[0].att2==="value2");
+
+  // Normal jquery behavior
+  ok(element.attr("att3")==="value3");
+
 });
